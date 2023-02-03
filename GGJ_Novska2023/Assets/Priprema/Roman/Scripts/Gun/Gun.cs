@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     public float GunDamage;
+    public float GunRange;
     public Camera PlayerCamera;
 
 
@@ -17,9 +18,15 @@ public class Gun : MonoBehaviour
     void Shoot()
     {
         RaycastHit hitInfo;
-        if (Physics.Raycast(PlayerCamera.transform.position, PlayerCamera.transform.forward, out hitInfo))
+        if (Physics.Raycast(PlayerCamera.transform.position, PlayerCamera.transform.forward, out hitInfo, GunRange))
         {
-            Debug.Log("HIT: " + hitInfo.transform.name);
+            //Debug.Log("HIT: " + hitInfo.transform.name);
+            Enemy EnemyInfo = hitInfo.transform.GetComponent<Enemy>();
+            if (EnemyInfo != null)
+            {
+                EnemyInfo.EnemyHit(GunDamage);
+                Debug.Log("EnemyHealth: " + EnemyInfo.EnemyHealth);
+            }
         }
     }
 }
