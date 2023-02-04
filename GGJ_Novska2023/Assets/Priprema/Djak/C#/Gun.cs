@@ -13,7 +13,7 @@ public class Gun : MonoBehaviour
     public float spread; 
     public float reloadTime; 
     public float timeBetweenShots;
-    public int magazineSize, bulletsPerTap;
+    public float magazineSize, bulletsPerTap;
     public bool allowButtonHold;
 
     [Header("Recoil")]
@@ -27,10 +27,11 @@ public class Gun : MonoBehaviour
     public GameObject muzzleFlash;
 
     [Header("UI")]
-    public Slider magazine;
+    public Image magazine;
     public Text bulletsText;
+    public Text reloadIndicator;
 
-    [HideInInspector] public int bulletsLeft, bulletsShot;
+    [HideInInspector] public float bulletsLeft, bulletsShot;
     bool shooting, readyToShoot, reloading;
 
     Camera fpsCam;
@@ -40,14 +41,13 @@ public class Gun : MonoBehaviour
     //BUG FIXING
     bool allowInvoke = true;
 
-    private void Start()
+    public void Start()
     {
-        bulletsLeft = magazineSize;
+        bulletsLeft = Mathf.Round(magazineSize);
         readyToShoot = true;
         fpsCam = Camera.main;
         anim = GetComponent<Animator>();
         playerRB = GameObject.Find("Player").GetComponent<Rigidbody>();
-        magazine.maxValue = magazineSize;
     }
 
     private void Update()
@@ -63,7 +63,7 @@ public class Gun : MonoBehaviour
         else shooting = Input.GetMouseButtonDown(0);
 
         //SHOOT
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0)
+        if (readyToShoot && shooting && !reloading && bulletsLeft > 0 && !GameManager.instance.inShop && Time.timeScale != 0)
         {
             bulletsShot = 0;
             Shoot();
@@ -74,14 +74,15 @@ public class Gun : MonoBehaviour
         if (Input.GetKeyDown(reloadButton) && bulletsLeft < magazineSize && !reloading) Reload();
         if (readyToShoot && shooting && !reloading && bulletsLeft <= 0)
         {
-            //YOUHAVETORELOADTEXTSTUFF();
+            reloadIndicator.gameObject.SetActive(true);
+            Invoke(nameof(ResetNekaj), .5f);
         }
     }
 
     void UIUpdate()
     {
-        magazine.value = bulletsLeft;
-        bulletsText.text = bulletsLeft.ToString() + " / " + magazineSize.ToString();
+        magazine.fillAmount = Mathf.Lerp(magazine.fillAmount, bulletsLeft / magazineSize, .2f);
+        bulletsText.text = Mathf.Round(bulletsLeft).ToString() + " / " + Mathf.Round(magazineSize).ToString();
     }
 
     public void Shoot()
@@ -141,5 +142,10 @@ public class Gun : MonoBehaviour
     {
         bulletsLeft = magazineSize;
         reloading = false;
+    }
+
+    void ResetNekaj()
+    {
+        reloadIndicator.gameObject.SetActive(false);
     }
 }

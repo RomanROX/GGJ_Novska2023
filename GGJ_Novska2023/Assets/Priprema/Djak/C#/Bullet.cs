@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
     public float lifeTime;
     public int maxCollisions;
     public bool explodeOnTouch;
-    public float damage;
+    public float damage = 10;
 
     int collisions;
     PhysicMaterial pm;
@@ -52,22 +52,6 @@ public class Bullet : MonoBehaviour
         if (explosion != null)
         {
             Instantiate(explosion, transform.position, Quaternion.identity);
-
-            Collider[] colliders = Physics.OverlapSphere(transform.position, 2f);
-            foreach (var item in colliders)
-            {
-                if (item.CompareTag("Enemy"))
-                {
-                    item.GetComponent<Enemy>().DoRagdoll(true);
-                    Rigidbody[] rbs = item.GetComponentsInChildren<Rigidbody>();
-                    foreach (var rb in rbs)
-                        rb.AddExplosionForce(15f / rb.mass, transform.position, 2f);
-                }
-                else
-                {
-                    if (item.TryGetComponent<Rigidbody>(out var rb)) rb.AddExplosionForce(800f / rb.mass, transform.position, 2f);
-                }
-            }
         }
         Invoke(nameof(Destroy2), .05f);
     }
@@ -77,16 +61,15 @@ public class Bullet : MonoBehaviour
         Destroy(gameObject);    
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         collisions++;
 
-        if (collision.collider.CompareTag("Enemy") && explodeOnTouch)
+        if (other.CompareTag("Enemy") && explodeOnTouch)
         {
-            collision.collider.GetComponent<Enemy>().TakeDamage(damage);
+            other.GetComponent<Enemy>().TakeDamage(Mathf.RoundToInt(damage * GameManager.instance.damageMultiplier));
             Explode();
         }
-            
     }   
 
     private void OnDrawGizmos()

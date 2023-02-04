@@ -158,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
         // on slope
         if (OnSlope() && !exitingSlope)
         {
-            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
+            rb.AddForce(20f * moveSpeed * GetSlopeMoveDirection(), ForceMode.Force);
 
             if (rb.velocity.y > 0)
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
@@ -166,11 +166,11 @@ public class PlayerMovement : MonoBehaviour
 
         // on ground
         else if(grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            rb.AddForce(10f * moveSpeed * moveDirection.normalized, ForceMode.Force);
 
         // in air
         else if(!grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+            rb.AddForce(10f * airMultiplier * moveSpeed * moveDirection.normalized, ForceMode.Force);
 
         // turn gravity off while on slope
         rb.useGravity = !OnSlope();
@@ -188,7 +188,7 @@ public class PlayerMovement : MonoBehaviour
         // limiting speed on ground or in air
         else
         {
-            Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            Vector3 flatVel = new(rb.velocity.x, 0f, rb.velocity.z);
 
             // limit velocity if needed
             if (flatVel.magnitude > moveSpeed)

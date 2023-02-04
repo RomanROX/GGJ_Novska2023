@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1116893151503113155}
   - component: {fileID: -5248484152804366583}
   - component: {fileID: 1116893151503113154}
+  - component: {fileID: -3031970279241740182}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
@@ -65,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 122e9a5c06b9d1a4b99469c1c7c6f3d9, type: 2}
+  - {fileID: 2100000, guid: 74cb298c43a85604c9101e4cd348b7a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,8 +98,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.4
+  m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &-5248484152804366583
@@ -130,15 +131,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
-  radius: 6
-  timeBtwnAttacks: 0.5
-  canShoot: 0
-  hasAttacked: 0
-  ground:
-    serializedVersion: 2
-    m_Bits: 8
-  health: 0
-  maxHealth: 30
+  radius: 4
+  maxHealth: 60
+--- !u!136 &-3031970279241740182
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116893151503113153}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5196288881764803019
 GameObject:
   m_ObjectHideFlags: 0

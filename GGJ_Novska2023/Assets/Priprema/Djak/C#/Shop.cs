@@ -6,30 +6,43 @@ public class Shop : MonoBehaviour
     public GameObject shopUI;
     bool nearShop;
 
-    int[] prices = new int[4];
-    int[] upgradeLevels = new int[4];
+    int[] prices = new int[3];
+    int[] upgradeLevels = new int[3];
     public Text[] priceTexts;
     public Text[] levelTexts;
+    public Text coins;
 
     private void Start()
     {
-        prices[0] = 300;
-        prices[1] = 350;
-        prices[2] = 400;
-        prices[3] = 300;
+        prices[0] = 100;
+        prices[1] = 100;
+        prices[2] = 100;
 
         upgradeLevels[0] = 1;
         upgradeLevels[1] = 1;
         upgradeLevels[2] = 1;
-        upgradeLevels[3] = 1;
     }
 
     private void Update()
     {
         if (nearShop && Input.GetKeyDown(KeyCode.E))
         {
-            shopUI.SetActive(!shopUI.activeInHierarchy);
-            GameManager.instance.inShop = !GameManager.instance.inShop;
+            if(shopUI.activeInHierarchy)
+            {
+                shopUI.SetActive(false);
+                GameManager.instance.inShop = false;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                
+            }
+            else
+            {
+                shopUI.SetActive(true);
+                GameManager.instance.inShop = true;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                coins.text = GameManager.instance.cash.ToString();
+            }
         }
     }
 
@@ -37,22 +50,24 @@ public class Shop : MonoBehaviour
     {
         if (GameManager.instance.cash >= prices[index])
         {
-            prices[index] = Mathf.RoundToInt(prices[index] * 1.5f);
-            priceTexts[index].text = prices[index].ToString();
-            upgradeLevels[index]++;
-            levelTexts[index].text = "LEVEL " + upgradeLevels[index].ToString();
             switch (index)
             {
                 case 0:
-                    //TAKE CASH AND APPLY ITEM
+                    GameManager.instance.cash -= prices[index];
+                    GameManager.instance.coinMultiplier *= 1.2f;
                     break;
                 case 1:
-                    //TAKE CASH AND APPLY ITEM
+                    GameManager.instance.cash -= prices[index];
+                    GameManager.instance.damageMultiplier *= 1.2f;
                     break;
                 case 2:
-                    //TAKE CASH AND APPLY ITEM
+                    GameManager.instance.cash -= prices[index];
                     break;
             }
+            prices[index] = Mathf.RoundToInt(prices[index] * 1.5f);
+            priceTexts[index].text = prices[index].ToString() + "$";
+            upgradeLevels[index]++;
+            levelTexts[index].text = "Lvl " + upgradeLevels[index].ToString();
         }
         else
         {

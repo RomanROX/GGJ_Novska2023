@@ -27,6 +27,11 @@ public class Wave_Manager : MonoBehaviour
 
     public Text waveNumber;
 
+    private void Start()
+    {
+        waveNumber.text = "Wave: " + (currentWaveNumber + 1).ToString();
+    }
+
     private void Update()
     {
         currentWave = waves[currentWaveNumber];
@@ -34,14 +39,19 @@ public class Wave_Manager : MonoBehaviour
         GameObject[] totalEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         if (totalEnemies.Length == 0 && canSpawn == false && currentWaveNumber + 1 != waves.Length && timeBtwWaves == true)
         {
-            Invoke("SpawnNextWave", timeBetweenWaves);
+            Invoke(nameof(SpawnNextWave), timeBetweenWaves);
             timeBtwWaves = false;
         }
+    }
+
+    private void LateUpdate()
+    {
+        waveNumber.gameObject.SetActive(timeBtwWaves);
+        waveNumber.text = "Wave: " + (currentWaveNumber + 1).ToString();
     }
     void SpawnNextWave()
     {
         currentWaveNumber++;
-        waveNumber.text = currentWave.waveName.ToString();
         canSpawn = true; 
         timeBtwWaves = true; 
     }

@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6673387756599546853}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 122e9a5c06b9d1a4b99469c1c7c6f3d9, type: 2}
+  - {fileID: 2100000, guid: 74cb298c43a85604c9101e4cd348b7a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,7 +94,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6673387756599546853}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -118,10 +118,10 @@ MonoBehaviour:
   useGravity: 0
   bounciness: 0
   explosionRange: 3
-  lifeTime: 3
-  maxCollisions: 2
+  lifeTime: 0.45193
+  maxCollisions: 1
   explodeOnTouch: 1
-  damage: 10
+  damage: 1
 --- !u!54 &1168833686388009555
 Rigidbody:
   m_ObjectHideFlags: 0
