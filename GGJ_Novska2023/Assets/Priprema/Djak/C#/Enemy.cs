@@ -14,6 +14,8 @@ public class Enemy : MonoBehaviour
     float distance; //DISTANCE BTWN TARGET AND SELF
     int maxHealth;
     private int health;
+    private float damageTimer = .3f;
+    bool chasingPlayer = false;
     #endregion
 
     private void Start()
@@ -39,17 +41,36 @@ public class Enemy : MonoBehaviour
 
     public void Update()
     {
-        distance = Vector3.Distance(GameObject.Find("Player").transform.position, transform.position); //CALCULATE DISTANCE BETWEEN TARGET & SELF
+        distance = Vector3.Distance(GameObject.Find("Player").transform.position, transform.position);
 
-        if (distance <= radius) //CHASE IF DISTANCE <= RADIUS, OTHERWISE PATROLL
+        if (distance <= radius)
         {
+            chasingPlayer = true;
             Chase(GameObject.Find("Player").transform);
         }
-        else if(Vector3.Distance(target.position, transform.position) <= 1)
+        else if (Vector3.Distance(target.position, transform.position) <= 1)
         {
+            chasingPlayer = false;
             transform.LookAt(target);
         }
-        else Chase(target);
+        else
+        {
+            chasingPlayer = false;
+            Chase(target);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {    
+        if (other.CompareTag("Plant") && !chasingPlayer)
+        {
+            if (damageTimer <= 0)
+            {
+                other.GetComponent<MainPlant>().health -= 25;
+                damageTimer = .3f;
+            }
+            else damageTimer -= Time.deltaTime;   
+        }
     }
 
     public void Chase(Transform target)

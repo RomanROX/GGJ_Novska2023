@@ -7,9 +7,8 @@ public class MainPlant : MonoBehaviour
 {
     public float maxWater;
     public float maxHealth;
-    private float health;
+    [HideInInspector] public float health;
     [HideInInspector] public float water;
-    float damageTimer = .3f;
 
     public Image waterAmount, healthAmount;
     public Text waterText, healthText;
@@ -34,22 +33,17 @@ public class MainPlant : MonoBehaviour
         {
             GameManager.instance.GameOver();
         }
+        if(health <= 0) GameManager.instance.GameOver();
     }
 
-    private void OnTriggerStay(Collider other)
+    public IEnumerator Regenerate()
     {
-        if(other.CompareTag("Enemy"))
+        float timer = 0;
+        while (timer < 30)
         {
-            if (damageTimer <= 0)
-            {
-                health -= 25;
-                if(health <= 0)
-                {
-                    GameManager.instance.GameOver();
-                }
-                damageTimer = .3f;
-            }
-            else damageTimer -= Time.deltaTime;
+            if(health <= maxHealth) health += Time.deltaTime;
+            timer += Time.deltaTime;
         }
-    }
+        yield return null;
+    }    
 }

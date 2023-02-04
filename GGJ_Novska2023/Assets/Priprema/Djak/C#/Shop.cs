@@ -63,6 +63,7 @@ public class Shop : MonoBehaviour
                     break;
                 case 2:
                     GameManager.instance.cash -= prices[index];
+                    StartCoroutine(FindObjectOfType<MainPlant>().Regenerate());
                     break;
             }
             prices[index] = Mathf.RoundToInt(prices[index] * 1.5f);

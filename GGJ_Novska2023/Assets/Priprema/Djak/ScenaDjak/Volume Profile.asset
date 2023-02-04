@@ -18,7 +18,7 @@ MonoBehaviour:
     m_Value: 2
   intensity:
     m_OverrideState: 1
-    m_Value: 0.249
+    m_Value: 0.197
   response:
     m_OverrideState: 0
     m_Value: 0.8
@@ -40,13 +40,13 @@ MonoBehaviour:
   active: 1
   lift:
     m_OverrideState: 1
-    m_Value: {x: 0.99906296, y: 1, z: 0.9595417, w: 0}
+    m_Value: {x: 1, y: 0.99242526, z: 0.89073974, w: 0}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 1, y: 0.97644675, z: 0.97023046, w: 0}
+    m_Value: {x: 1, y: 0.99969745, z: 0.98117214, w: 0.3657644}
   gain:
     m_OverrideState: 1
-    m_Value: {x: 0.9277991, y: 0.9680328, z: 1, w: 0}
+    m_Value: {x: 0.8843887, y: 0.930807, z: 1, w: 0.029261153}
 --- !u!114 &-1547738767421508683
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -62,7 +62,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.361
+    m_Value: 0.365
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: -0.107
+    m_Value: -0.124
   xMultiplier:
     m_OverrideState: 0
     m_Value: 1
@@ -159,7 +159,7 @@ MonoBehaviour:
     m_Value: 0
   contrast:
     m_OverrideState: 1
-    m_Value: 15
+    m_Value: 3
   colorFilter:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -190,7 +190,7 @@ MonoBehaviour:
     m_Value: 10
   gaussianEnd:
     m_OverrideState: 1
-    m_Value: 500
+    m_Value: 400
   gaussianMaxRadius:
     m_OverrideState: 0
     m_Value: 1
@@ -246,7 +246,7 @@ MonoBehaviour:
   active: 1
   distance:
     m_OverrideState: 1
-    m_Value: 0.077
+    m_Value: 0.154
   cropToFit:
     m_OverrideState: 0
     m_Value: 1
@@ -271,10 +271,10 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.425
+    m_Value: 0.365
   smoothness:
-    m_OverrideState: 0
-    m_Value: 0.2
+    m_OverrideState: 1
+    m_Value: 0.472
   rounded:
     m_OverrideState: 0
     m_Value: 0
@@ -293,7 +293,7 @@ MonoBehaviour:
   active: 1
   temperature:
     m_OverrideState: 1
-    m_Value: 18
+    m_Value: 17.1
   tint:
     m_OverrideState: 1
     m_Value: 5.2
@@ -312,7 +312,7 @@ MonoBehaviour:
   active: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.2
+    m_Value: 0.87
   intensity:
     m_OverrideState: 1
     m_Value: 0.23
