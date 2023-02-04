@@ -6,6 +6,7 @@ public class PlayerCam : MonoBehaviour
     public float sensY; //changeable by user
 
     public Transform orientation; //child objekt playera koji samo prati orijentaciju
+    public Transform clippingCamera;
 
     float xRot;
     float yRot;
@@ -32,6 +33,7 @@ public class PlayerCam : MonoBehaviour
             xRot = Mathf.Clamp(xRot, -90, 90);
 
             //ROTATE PLAYER AND CAMERA
+            clippingCamera.rotation = Quaternion.Euler(xRot, yRot, 0);
             transform.rotation = Quaternion.Euler(xRot, yRot, 0);
             orientation.rotation = Quaternion.Euler(0, yRot, 0);
         }

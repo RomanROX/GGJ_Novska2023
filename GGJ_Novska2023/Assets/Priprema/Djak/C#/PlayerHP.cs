@@ -38,6 +38,18 @@ public class PlayerHP : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            TakeDamage(10);
+            if (health <= 0)
+            {
+                GameManager.instance.GameOver();
+            }
+        }
+    }
+
     void TakeDamage(int damage)
     {
         health -= damage;

@@ -5,19 +5,23 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     #region VARIABLES
-    public float speed;
-    public float radius;
+    float speed;
+    float radius;
     int coinAmount;
 
     private Transform target;
 
     float distance; //DISTANCE BTWN TARGET AND SELF
-    public int maxHealth;
+    int maxHealth;
     private int health;
     #endregion
 
     private void Start()
     {
+        speed = Random.Range(.5f, 1.5f);
+        radius = 6;
+        maxHealth = Random.Range(95, 135);
+
         health = maxHealth;
         coinAmount = Random.Range(15, 45);
         target = GameObject.Find("Pivot").transform;

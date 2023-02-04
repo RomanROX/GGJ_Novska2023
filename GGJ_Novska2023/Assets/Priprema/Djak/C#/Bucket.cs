@@ -11,18 +11,20 @@ public class Bucket : MonoBehaviour
     bool inUse = false;
     public Slider bucketSlider;
     public GameObject bucket;
+    Animator anim;
 
     private void Start()
     {
         bucketSlider.maxValue = bucketAmount;
         bucketSlider.value = water;
+        anim = bucket.GetComponent<Animator>();
     }
 
     private void Update()
     {
-        bucket.SetActive(inUse);
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, 5f, plantLayer) && Input.GetKey(KeyCode.F))
         {
+            bucket.SetActive(true);
             inUse = true;
             if (hit.transform.CompareTag("Plant"))
             {
@@ -45,6 +47,16 @@ public class Bucket : MonoBehaviour
             }
             bucketSlider.value = water;
         }
-        else inUse = false;
+        else 
+        {
+            anim.SetTrigger("Stop");
+            Invoke(nameof(StopUsing), 1f);
+        }
+    }
+
+    void StopUsing()
+    {
+        inUse = false;
+        bucket.SetActive(false);
     }
 }

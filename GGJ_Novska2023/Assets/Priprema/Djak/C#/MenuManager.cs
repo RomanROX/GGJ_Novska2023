@@ -7,7 +7,7 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject mainMenu, creditsMenu;
     public void Retry() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    public void LoadGame() => SceneManager.LoadScene("ScenaDjak");
+    public void LoadGame() => SceneManager.LoadScene("MainScene");
     public void BackToMain() => SceneManager.LoadScene("Main");
 
     public void OpenCredits()

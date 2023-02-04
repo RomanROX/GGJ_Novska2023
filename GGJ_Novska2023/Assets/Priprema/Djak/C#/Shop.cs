@@ -11,6 +11,7 @@ public class Shop : MonoBehaviour
     public Text[] priceTexts;
     public Text[] levelTexts;
     public Text coins;
+    public Text noCoinsIndicator;
 
     private void Start()
     {
@@ -71,8 +72,14 @@ public class Shop : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("NOT ENOUGH CASH");
+            noCoinsIndicator.gameObject.SetActive(true);
+            Invoke(nameof(ResetNekaj), .5f);
         }
+    }
+
+    private void ResetNekaj()
+    {
+        noCoinsIndicator.gameObject.SetActive(false);
     }
 
     private void OnTriggerStay(Collider other)
