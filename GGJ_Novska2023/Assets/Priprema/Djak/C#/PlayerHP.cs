@@ -9,7 +9,7 @@ public class PlayerHP : MonoBehaviour
     private float health;
     public Image image;
     public Text text;
-    float damageTimer = .3f;
+    float damageTimer = 0f;
     private void Start()
     {
         health = maxHealth;
@@ -32,21 +32,9 @@ public class PlayerHP : MonoBehaviour
                 {
                     GameManager.instance.GameOver();
                 }
-                damageTimer = .3f;
+                damageTimer = .7f;
             }
             else damageTimer -= Time.deltaTime;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Enemy"))
-        {
-            TakeDamage(10);
-            if (health <= 0)
-            {
-                GameManager.instance.GameOver();
-            }
         }
     }
 

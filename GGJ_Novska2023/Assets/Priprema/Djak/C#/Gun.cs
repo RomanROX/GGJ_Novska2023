@@ -54,6 +54,7 @@ public class Gun : MonoBehaviour
     {
          MyInput();
         UIUpdate();
+        anim.SetFloat("MovingSpeed", Input.GetAxisRaw("Vertical"));
     }
 
     void MyInput()
@@ -119,6 +120,8 @@ public class Gun : MonoBehaviour
         if (allowInvoke)
             playerRB.AddForce(-direction.normalized * recoilForce, ForceMode.Impulse);
         //anim.SetTrigger("Shoot");
+        if (muzzleFlash != null) Instantiate(muzzleFlash, attackPoint.position, attackPoint.rotation);
+
         Invoke(nameof(ResetShoot), timeBetweenShooting);
     }
 
@@ -131,9 +134,9 @@ public class Gun : MonoBehaviour
     void Reload()
     {
         //CHANGE ANIMATION SPEED THROUGH PARAMETER
-        //anim.SetFloat("Duration", 1 / reloadTime);
+        anim.SetFloat("Duration", 1 / reloadTime);
 
-        //anim.SetTrigger("Reload");
+        anim.SetTrigger("Reload");
         reloading = true;
         Invoke(nameof(ReloadFinished), reloadTime);
     }

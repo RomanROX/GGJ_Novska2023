@@ -42,9 +42,9 @@ public class Shop : MonoBehaviour
                 GameManager.instance.inShop = true;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
-                coins.text = GameManager.instance.cash.ToString();
             }
         }
+        coins.text = GameManager.instance.cash.ToString();
     }
 
     public void Upgrade(int index)
@@ -74,6 +74,7 @@ public class Shop : MonoBehaviour
         else
         {
             noCoinsIndicator.gameObject.SetActive(true);
+            priceTexts[index].text = prices[index].ToString() + "$";
             Invoke(nameof(ResetNekaj), .5f);
         }
     }
@@ -83,9 +84,12 @@ public class Shop : MonoBehaviour
         noCoinsIndicator.gameObject.SetActive(false);
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) nearShop = true;
-        else nearShop = false;
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player")) nearShop = false;
     }
 }

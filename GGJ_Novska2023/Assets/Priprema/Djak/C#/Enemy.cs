@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    #region VARIABLES
+    public GameObject explosion;
+
+    public float minSpeed = .5f;
+    public float maksSpeed = 1.5f;
+    public int minHealth = 60; 
+    public int maksHealth = 200;
+    public int minCoins = 15;
+    public int maxCoins = 45;
+    public float waterTakeAmount = 100f;
+    public int damage = 25;
+
     float speed;
     float radius;
     int coinAmount;
@@ -14,18 +24,18 @@ public class Enemy : MonoBehaviour
     float distance; //DISTANCE BTWN TARGET AND SELF
     int maxHealth;
     private int health;
-    private float damageTimer = .3f;
+    private float damageTimer = 1f;
     bool chasingPlayer = false;
-    #endregion
+
 
     private void Start()
     {
-        speed = Random.Range(.5f, 1.5f);
+        speed = Random.Range(minSpeed, maksSpeed);
         radius = 6;
-        maxHealth = Random.Range(95, 135);
+        maxHealth = Random.Range(minHealth, maksHealth);
 
         health = maxHealth;
-        coinAmount = Random.Range(15, 45);
+        coinAmount = Random.Range(minCoins, maxCoins);
         target = GameObject.Find("Pivot").transform;
     }
 
@@ -35,6 +45,7 @@ public class Enemy : MonoBehaviour
         if (health <= 0)
         {
             GameManager.instance.cash += Mathf.RoundToInt(coinAmount);
+            Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
@@ -46,7 +57,8 @@ public class Enemy : MonoBehaviour
         if (distance <= radius)
         {
             chasingPlayer = true;
-            Chase(GameObject.Find("Player").transform);
+            if (distance > 1)
+                Chase(GameObject.Find("Player").transform);
         }
         else if (Vector3.Distance(target.position, transform.position) <= 1)
         {
@@ -66,11 +78,17 @@ public class Enemy : MonoBehaviour
         {
             if (damageTimer <= 0)
             {
-                other.GetComponent<MainPlant>().health -= 25;
-                damageTimer = .3f;
+                other.GetComponent<MainPlant>().health -= damage;
+                damageTimer = 1f;
             }
             else damageTimer -= Time.deltaTime;   
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Plant") && !chasingPlayer)
+            other.GetComponent<MainPlant>().water -= waterTakeAmount;
     }
 
     public void Chase(Transform target)

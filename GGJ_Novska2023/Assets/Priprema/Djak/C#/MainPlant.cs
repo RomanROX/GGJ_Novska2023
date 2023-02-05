@@ -26,7 +26,7 @@ public class MainPlant : MonoBehaviour
             waterAmount.fillAmount = Mathf.Lerp(waterAmount.fillAmount, water / maxWater, .2f);
             healthAmount.fillAmount = Mathf.Lerp(healthAmount.fillAmount, health / maxHealth, .2f);
 
-            healthText.text = health.ToString();
+            healthText.text = Mathf.Round(health).ToString();
             waterText.text = Mathf.Round(water).ToString();
         }
         else
@@ -41,9 +41,12 @@ public class MainPlant : MonoBehaviour
         float timer = 0;
         while (timer < 30)
         {
-            if(health <= maxHealth) health += Time.deltaTime;
+            yield return new WaitForSeconds(1);
+            if (health <= maxHealth)
+            {
+                health += Time.deltaTime * 2.5f;
+            }
             timer += Time.deltaTime;
         }
-        yield return null;
     }    
 }

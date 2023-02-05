@@ -49,10 +49,6 @@ public class Bullet : MonoBehaviour
 
     void Explode()
     {
-        if (explosion != null)
-        {
-            Instantiate(explosion, transform.position, Quaternion.identity);
-        }
         Invoke(nameof(Destroy2), .05f);
     }
 
@@ -68,6 +64,10 @@ public class Bullet : MonoBehaviour
         if (other.CompareTag("Enemy") && explodeOnTouch)
         {
             other.GetComponent<Enemy>().TakeDamage(Mathf.RoundToInt(damage * GameManager.instance.damageMultiplier));
+            if (explosion != null)
+            {
+                Instantiate(explosion, other.transform.position, Quaternion.identity);
+            }
             Explode();
         }
     }   
