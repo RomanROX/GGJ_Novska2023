@@ -15,7 +15,7 @@ public class MenuManager : MonoBehaviour
         music.volume = Mathf.Lerp(music.volume, 0, 1f);
         videoPlayer.gameObject.SetActive(true);
         mainMenu.SetActive(false);
-        Invoke(nameof(GoToGame), 9f);       
+       //Invoke(nameof(GoToGame), 9f);       
     }
     public void BackToMain() => SceneManager.LoadScene("Main");
 

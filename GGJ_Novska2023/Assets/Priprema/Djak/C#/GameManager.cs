@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public float coinMultiplier = 1;
     [HideInInspector] public float damageMultiplier = 1; 
     [HideInInspector] public bool inShop = false;
+    [HideInInspector] public bool IsDead = false;
+
     public Text coinsText;
     public GameObject gameOverUI;
 
@@ -27,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        IsDead = true;
         gameOverUI.SetActive(true);
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
